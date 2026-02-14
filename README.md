@@ -1,181 +1,99 @@
-# 🏛️ Civic Report System - Infrastructure Complaints & Traffic Violations
+# 🏛️ CivicReport — AI-Powered Civic Reporting Platform
 
-A complete MERN stack application for reporting and managing infrastructure issues and traffic violations in your community.
+A full-stack MERN application for reporting and managing infrastructure issues and traffic violations. Built with a modern premium UI, real-time alerts via Socket.IO, and AI-powered road defect detection using GPT-4o Vision.
 
-## ✅ What Has Been Built
+---
 
-### Backend (Complete)
-- ✅ **New Database Models:**
-  - `Report` model with categories, severity, status, location, updates
-  - `User` model with roles (Citizen, Official, Admin) and departments
-  
-- ✅ **Complete API Endpoints:**
-  - `POST /api/report` - Create new report
-  - `GET /api/reports` - Get all reports (with filters)
-  - `GET /api/report/:id` - Get single report details
-  - `PUT /api/report/:id` - Update report
-  - `DELETE /api/report/:id` - Delete report
-  - `POST /api/report/:id/update` - Add progress update
-  - `POST /api/report/:id/upvote` - Upvote/downvote report
-  - `GET /api/user-reports/:page` - Get user's reports
-  - `GET /api/assigned-reports` - Get reports assigned to official
-  - `POST /api/report/:id/assign` - Assign report to official (admin only)
-  - `GET /api/reports/statistics` - Get dashboard statistics
-  - `GET /api/reports/search` - Advanced search with filters
+## 🚀 Tech Stack
 
-- ✅ **Features:**
-  - Role-based access control (Citizen, Official, Admin)
-  - Department-based assignment
-  - Status tracking (New → In Progress → Resolved)
-  - Severity levels (Low, Medium, High, Critical)
-  - Location-based queries with geospatial indexing
-  - Progress updates timeline
-  - Upvoting system
-  - View counter
-
-### Frontend (Complete)
-- ✅ **Pages Created:**
-  - Home page with statistics dashboard
-  - Report submission form
-  - Report detail view with updates
-  - User dashboard (my reports + assigned reports)
-  - Login/Register pages
-  
-- ✅ **Components:**
-  - ReportCard - Display report summaries
-  - Navigation with role badges
-  - Status and severity indicators
-  - Update timeline
-  - Upvote functionality
-
-- ✅ **Features:**
-  - Responsive design with Bootstrap
-  - Real-time status updates
-  - Role-based UI (different views for Citizens/Officials/Admin)
-  - Category icons and color coding
-  - Google Places fallback for manual address entry
-
-### Database
-- ✅ **Seeded with test data:**
-  - 5 users (1 admin, 2 citizens, 2 officials)
-  - 6 sample reports across different categories
-  - Various statuses and severity levels
-
-## 🚀 How to Run
-
-### 1. Start MongoDB
-```bash
-# MongoDB should already be running
-Get-Service -Name MongoDB
-```
-
-### 2. Start Backend Server
-```bash
-cd civic-report-app/server
-npm start
-```
-Server runs on: http://localhost:8000
-
-### 3. Start Frontend Client
-```bash
-cd civic-report-app/client
-npm start
-```
-Client runs on: http://localhost:3000
-
-## 🔐 Test Accounts
-
-### Admin Account
-- **Email:** admin@civic.gov
-- **Password:** admin123
-- **Access:** Full system access, can assign reports, view all data
-
-### Citizen Accounts
-- **Email:** john@example.com / jane@example.com
-- **Password:** citizen123
-- **Access:** Submit reports, track own reports, upvote
-
-### Official Accounts
-- **Email:** mike@civic.gov (Roads Dept) / sarah@civic.gov (Traffic Dept)
-- **Password:** official123
-- **Access:** View assigned reports, add updates, change status
-
-## 📊 Report Categories
-
-### Infrastructure Issues:
-- 🕳️ Potholes
-- 💡 Streetlights
-- 💧 Water Supply
-- 🚰 Drainage
-- 🛣️ Road Damage
-- 🚦 Traffic Signals
-- 🗑️ Garbage Collection
-- 🏗️ Other Infrastructure
-
-### Traffic Violations:
-- 🚗 Illegal Parking
-- 🚦 Signal Violations
-- ⚠️ Other Violations
-
-## 🎯 Key Features Implemented
-
-### For Citizens:
-- ✅ Submit infrastructure complaints
-- ✅ Report traffic violations
-- ✅ Track report status
-- ✅ Upvote important issues
-- ✅ View community reports
-- ✅ Get updates on submitted reports
-
-### For Officials:
-- ✅ View assigned reports
-- ✅ Add progress updates
-- ✅ Change report status
-- ✅ Filter by department
-- ✅ Priority-based sorting
-
-### For Admins:
-- ✅ View all reports
-- ✅ Assign reports to officials
-- ✅ View statistics dashboard
-- ✅ Manage users and reports
-- ✅ Track resolution metrics
-
-## 🔧 Technical Stack
-
-- **Frontend:** React 18, React Router, Axios, Ant Design, Bootstrap, date-fns
+- **Frontend:** React 18, Framer Motion, Lucide Icons, React Router v6
 - **Backend:** Node.js, Express, MongoDB, Mongoose
-- **Authentication:** JWT tokens with refresh tokens
-- **File Upload:** AWS S3 (configured, ready to use)
-- **Email:** AWS SES (configured, ready to use)
-- **Maps:** Google Maps API (fallback implemented)
+- **AI:** OpenAI GPT-4o Vision — image analysis & defect detection
+- **LLM:** Prompt engineering + RAG pipeline (embeddings via `text-embedding-3-small`, cosine similarity search over MongoDB)
+- **Real-time:** Socket.IO — live alerts for nearby incidents
+- **Maps:** Google Maps API — satellite view, GPS auto-pinning
+- **Auth:** JWT + Refresh Tokens, Role-based access control
+- **Styling:** Custom CSS — glassmorphism, gradients, dark/light mode
 
-## 📈 Optional Enhancements (Ready to Add)
+---
 
-### 1. Real-time Notifications
-- WebSocket integration for live updates
-- Push notifications when report status changes
-- Email alerts for assigned officials
+## ✨ Features
 
-### 2. Advanced Analytics
-- Dashboard charts (reports by category, severity, time)
-- Resolution time metrics
-- Department performance tracking
-- Heatmaps of problem areas
+### AI & LLM Integration
+- 📸 **Smart Camera** — capture road images directly from device camera
+- 🤖 **GPT-4o Vision** — auto-detects potholes, cracks, road damage from photos with confidence scoring
+- 🧠 **Prompt Engineering** — domain-specific system prompt gives GPT-4o the context of a professional civic infrastructure engineer, producing precise structured assessments
+- 📚 **RAG Pipeline** — complaint text is converted to a vector embedding (`text-embedding-3-small`), similarity-searched against all past reports in MongoDB, and top matches are injected into the LLM prompt as context — enabling recurring issue detection and resolution time estimates
+- 📊 **Structured Output** — all LLM responses enforce `response_format: json_object`, guaranteeing parseable JSON with fields like `severity`, `priority`, `recommendedAction`, `estimatedResolutionDays`, `isRecurring`
+- 🗺️ **GPS Auto-pin** — detected issues are automatically placed on satellite map
+- 🚨 **Emergency Detection** — AI flags critical issues and escalates automatically
+- � **Socket.IO Alerts** — nearby users get real-time notifications for accidents and critical reportso
 
-### 3. Map Integration
-- Cluster markers for nearby reports
-- Interactive map view
-- Filter reports by map area
-- Route planning for officials
+### Reporting System
+- Submit infrastructure complaints and traffic violations
+- Category auto-detection via AI or manual selection
+- Severity levels: Low / Medium / High / Critical
+- Photo evidence upload with AI analysis
+- Location tagging with address and GPS coordinates
 
-### 4. Enhanced Features
-- Photo upload for evidence
-- Comment system for community discussion
-- Report sharing on social media
-- Mobile app (React Native)
-- SMS notifications
-- QR code for quick reporting
+### Role-Based Access
+| Role | Capabilities |
+|------|-------------|
+| Citizen | Submit reports, track status, upvote issues |
+| Official | View assigned reports, add updates, change status |
+| Admin | Assign reports, view all stats, manage users |
+
+### Dashboard
+- Live statistics — total, new, in-progress, resolved
+- My reports with full status tracking
+- Assigned reports queue for officials
+- Category and severity breakdown charts
+
+### UI/UX
+- Premium SaaS-style design (Stripe/Linear inspired)
+- Glassmorphism cards with gradient accents
+- Smooth Framer Motion animations
+- Full dark/light mode with system preference detection
+- Fully responsive across all devices
+
+---
+
+## 📋 API Endpoints
+
+### Auth
+```
+POST   /api/login
+POST   /api/pre-register
+GET    /api/current-user
+GET    /api/refresh-token
+PUT    /api/update-profile
+```
+
+### Reports
+```
+POST   /api/report              — Create report
+GET    /api/reports             — List all (filterable)
+GET    /api/report/:id          — Single report
+PUT    /api/report/:id          — Update report
+DELETE /api/report/:id          — Delete report
+POST   /api/report/:id/update   — Add progress update
+POST   /api/report/:id/upvote   — Upvote/remove upvote
+GET    /api/user-reports/:page  — My reports (paginated)
+GET    /api/assigned-reports    — Reports assigned to me
+POST   /api/report/:id/assign   — Assign to official (admin only)
+GET    /api/reports/statistics  — Dashboard stats
+GET    /api/reports/search      — Advanced search
+```
+
+### AI
+```
+POST   /api/ai/analyze-image      — Analyze image with GPT-4o Vision
+POST   /api/ai/report/create      — Create AI-assisted report
+POST   /api/ai/analyze-complaint  — RAG: analyze complaint against past reports
+GET    /api/ai/statistics         — Enhanced stats with AI insights
+```
+
+---
 
 ## 🗂️ Project Structure
 
@@ -183,129 +101,133 @@ Client runs on: http://localhost:3000
 civic-report-app/
 ├── server/
 │   ├── controllers/
-│   │   ├── auth.js          # Authentication logic
-│   │   └── report.js        # Report CRUD operations
+│   │   ├── auth.js
+│   │   ├── report.js
+│   │   └── reportAI.js         ← AI report controller
 │   ├── models/
-│   │   ├── user.js          # User schema with roles
-│   │   └── report.js        # Report schema
+│   │   ├── user.js
+│   │   └── report.js
 │   ├── routes/
-│   │   ├── auth.js          # Auth routes
-│   │   └── report.js        # Report routes
-│   ├── config.js            # Database & API keys
-│   ├── seed.js              # Test data seeder
-│   └── server.js            # Express app
+│   │   ├── auth.js
+│   │   ├── report.js
+│   │   └── ai.js
+│   ├── services/
+│   │   ├── aiService.js        ← GPT-4o Vision integration
+│   │   └── socketService.js    ← Real-time alerts
+│   ├── middlewares/auth.js
+│   ├── config.js
+│   ├── seed.js
+│   └── server.js
 │
-├── client/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── cards/
-│   │   │   │   └── ReportCard.js
-│   │   │   └── nav/
-│   │   │       └── Main.js
-│   │   ├── pages/
-│   │   │   ├── Home.js
-│   │   │   ├── CreateReport.js
-│   │   │   ├── ReportView.js
-│   │   │   ├── Dashboard.js
-│   │   │   ├── Login.js
-│   │   │   └── Register.js
-│   │   ├── context/
-│   │   │   └── auth.js
-│   │   ├── config.js
-│   │   └── App.js
-│   └── package.json
-└── README.md
+└── client/
+    └── src/
+        ├── components/
+        │   ├── ai/SmartCamera.js
+        │   ├── maps/SmartMap.js
+        │   ├── nav/ModernNav.js
+        │   └── ui/ThemeToggle.js
+        ├── pages/
+        │   ├── LandingPage.js
+        │   ├── Login.js / Register.js
+        │   ├── ModernDashboard.js
+        │   ├── Reports.js
+        │   ├── ReportView.js
+        │   ├── ModernCreateReport.js
+        │   └── AIReportCreate.js
+        ├── context/
+        │   ├── auth.js
+        │   ├── theme.js
+        │   └── socket.js
+        └── styles/modern.css
 ```
-
-## 🎨 Customization
-
-### Add New Categories
-Edit `civic-report-app/client/src/config.js`:
-```javascript
-export const REPORT_CATEGORIES = [
-  "Your New Category",
-  // ... existing categories
-];
-```
-
-### Add New Departments
-Edit `civic-report-app/server/models/user.js`:
-```javascript
-department: {
-  type: String,
-  enum: ["Roads", "Water", "Electricity", "Traffic", "Your Dept", "General"],
-}
-```
-
-### Change Severity Levels
-Edit both client config and server model to add custom severity levels.
-
-## 🔒 Security Features
-
-- ✅ JWT authentication with refresh tokens
-- ✅ Role-based access control
-- ✅ Password hashing with bcrypt
-- ✅ Protected API routes
-- ✅ Input validation
-- ✅ CORS configuration
-
-## 📝 API Documentation
-
-### Create Report
-```
-POST /api/report
-Headers: Authorization: Bearer <token>
-Body: {
-  title, description, category, type, severity,
-  location: { address, city }
-}
-```
-
-### Get Reports (with filters)
-```
-GET /api/reports?status=New&category=Pothole&severity=High
-```
-
-### Add Update
-```
-POST /api/report/:id/update
-Body: { message: "Update text" }
-```
-
-## 🚧 Known Limitations
-
-- Image upload requires AWS S3 credentials
-- Email notifications require AWS SES setup
-- Google Maps requires API key for interactive maps
-- Real-time updates require WebSocket implementation
-
-## 🎯 Next Steps
-
-1. **Test the application:**
-   - Login with different roles
-   - Submit reports
-   - Add updates as official
-   - Assign reports as admin
-
-2. **Add API keys (optional):**
-   - AWS S3 for image uploads
-   - AWS SES for email notifications
-   - Google Maps for interactive maps
-
-3. **Customize for your needs:**
-   - Add your city's departments
-   - Customize categories
-   - Add your branding
-
-4. **Deploy to production:**
-   - Set up environment variables
-   - Configure production database
-   - Deploy to cloud platform
-
-## 📞 Support
-
-For issues or questions, check the code comments or refer to the original real estate app structure.
 
 ---
 
-**Built by transforming the Realist real estate marketplace into a civic engagement platform!** 🎉
+## ⚙️ Setup & Running
+
+### Prerequisites
+- Node.js 18+
+- MongoDB (local or Atlas)
+
+### 1. Install Dependencies
+
+```bash
+# Server
+cd civic-report-app/server
+npm install
+
+# Client
+cd civic-report-app/client
+npm install
+```
+
+### 2. Environment Variables
+
+Create `server/.env`:
+```env
+PORT=8000
+DATABASE_URL=mongodb://
+JWT_SECRET=your-secret-key
+CLIENT_URL=http://localhost:3000
+OPENAI_API_KEY=your-openai-key
+GOOGLE_MAPS_API_KEY=your-google-maps-key
+```
+
+Create `client/.env`:
+```env
+REACT_APP_API_URL=http://localhost:8000/api
+REACT_APP_GOOGLE_MAPS_KEY=your-google-maps-key
+```
+
+### 3. Seed Database
+
+```bash
+cd civic-report-app/server
+node seed.js
+```
+
+### 4. Run
+
+```bash
+# Terminal 1 — Backend
+cd civic-report-app/server
+node server.js
+
+# Terminal 2 — Frontend
+cd civic-report-app/client
+npm start
+```
+
+App runs at `http://localhost:3000`
+
+---
+
+## 🔑 Test Accounts
+
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@civic.gov | admin123 |
+| Citizen | john@example.com | citizen123 |
+| Official | mike@civic.gov | official123 |
+
+---
+
+## 📊 Report Categories
+
+**Infrastructure:** Pothole · Streetlight · Water Supply · Drainage · Road Damage · Traffic Signal · Garbage · Other
+
+**Traffic:** Illegal Parking · Signal Violations · Other Violations
+
+**Severity:** Low · Medium · High · Critical
+
+**Status flow:** New → In Progress → Resolved / Rejected / Closed
+
+---
+
+## 🔒 Security
+
+- JWT authentication with refresh token rotation
+- Role-based route protection on both client and server
+- Password hashing with bcrypt
+- CORS configured per environment
+- All secrets managed via environment variables

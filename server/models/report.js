@@ -113,6 +113,11 @@ const schema = new Schema(
       default: 0,
     },
     upvotes: [{ type: ObjectId, ref: "User" }],
+    // RAG: vector embedding of title+description for similarity search
+    embedding: {
+      type: [Number],
+      select: false, // don't return in normal queries
+    },
   },
   { timestamps: true }
 );
