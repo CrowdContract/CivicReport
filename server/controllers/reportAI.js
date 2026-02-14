@@ -102,6 +102,10 @@ export const createReportWithAI = async (req, res) => {
     const report = await new Report(reportData).save();
     await report.populate('reportedBy', 'name email role');
 
+    // Async: generate and store embedding for future RAG queries
+    const embedText = `${report.title} ${report.description} ${report.category}`;
+    aiService.embedReport(report._id, embedText).catch(console.error);
+
     // Send real-time alerts for critical/emergency issues
     if (reportData.isEmergency || aiAnalysis?.isEmergency) {
       console.log('Sending emergency alert...');
@@ -220,3 +224,19 @@ export const getEnhancedStatistics = async (req, res) => {
 // Multer middleware exports
 export const uploadImages = upload.array('images', 5);
 export const uploadSingleImage = upload.single('image');
+
+// RAG: analyze a complaint text against past reports
+export const analyzeComplaint = async (req, res) => {
+  try {
+    const { complaint, location } = req.body;
+    if (!complaint) return res.json({ error: 'Complaint text required' });
+
+    const result = await aiService.analyzeComplaintWithRAG(complaint, location);
+    if (!result) return res.json({ error: 'Analysis failed' });
+
+    res.json({ success: true, ...result });
+  } catch (error) {
+    console.error('Complaint analysis error:', error);
+    res.json({ error: error.message });
+  }
+};
