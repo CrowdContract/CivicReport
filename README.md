@@ -1,10 +1,10 @@
-# 🏛️ CivicReport — AI-Powered Civic Reporting Platform
+#  CivicReport — AI-Powered Civic Reporting Platform
 
 A full-stack MERN application for reporting and managing infrastructure issues and traffic violations. Built with a modern premium UI, real-time alerts via Socket.IO, and AI-powered road defect detection using GPT-4o Vision.
 
 ---
 
-## 🚀 Tech Stack
+##  Tech Stack
 
 - **Frontend:** React 18, Framer Motion, Lucide Icons, React Router v6
 - **Backend:** Node.js, Express, MongoDB, Mongoose
@@ -17,17 +17,15 @@ A full-stack MERN application for reporting and managing infrastructure issues a
 
 ---
 
-## ✨ Features
+##  Features
 
 ### AI & LLM Integration
-- 📸 **Smart Camera** — capture road images directly from device camera
-- 🤖 **GPT-4o Vision** — auto-detects potholes, cracks, road damage from photos with confidence scoring
-- 🧠 **Prompt Engineering** — domain-specific system prompt gives GPT-4o the context of a professional civic infrastructure engineer, producing precise structured assessments
-- 📚 **RAG Pipeline** — complaint text is converted to a vector embedding (`text-embedding-3-small`), similarity-searched against all past reports in MongoDB, and top matches are injected into the LLM prompt as context — enabling recurring issue detection and resolution time estimates
-- 📊 **Structured Output** — all LLM responses enforce `response_format: json_object`, guaranteeing parseable JSON with fields like `severity`, `priority`, `recommendedAction`, `estimatedResolutionDays`, `isRecurring`
-- 🗺️ **GPS Auto-pin** — detected issues are automatically placed on satellite map
-- 🚨 **Emergency Detection** — AI flags critical issues and escalates automatically
-- � **Socket.IO Alerts** — nearby users get real-time notifications for accidents and critical reportso
+-  **Prompt Engineering** — domain-specific system prompt gives GPT-4o the context of a professional civic infrastructure engineer, producing precise structured assessments
+-  **RAG Pipeline** — complaint text is converted to a vector embedding (`text-embedding-3-small`), similarity-searched against all past reports in MongoDB, and top matches are injected into the LLM prompt as context — enabling recurring issue detection and resolution time estimates
+-  **Structured Output** — all LLM responses enforce `response_format: json_object`, guaranteeing parseable JSON with fields like `severity`, `priority`, `recommendedAction`, `estimatedResolutionDays`, `isRecurring`
+-  **GPS Auto-pin** — detected issues are automatically placed on satellite map
+-  **Emergency Detection** — AI flags critical issues and escalates automatically
+-  **Socket.IO Alerts** — nearby users get real-time notifications for accidents and critical reportso
 
 ### Reporting System
 - Submit infrastructure complaints and traffic violations
@@ -58,7 +56,7 @@ A full-stack MERN application for reporting and managing infrastructure issues a
 
 ---
 
-## 📋 API Endpoints
+##  API Endpoints
 
 ### Auth
 ```
@@ -95,7 +93,7 @@ GET    /api/ai/statistics         — Enhanced stats with AI insights
 
 ---
 
-## 🗂️ Project Structure
+##  Project Structure
 
 ```
 civic-report-app/
@@ -202,7 +200,7 @@ App runs at `http://localhost:3000`
 
 ---
 
-## 🔑 Test Accounts
+##  Test Accounts
 
 | Role | Email | Password |
 |------|-------|----------|
@@ -212,7 +210,7 @@ App runs at `http://localhost:3000`
 
 ---
 
-## 📊 Report Categories
+##  Report Categories
 
 **Infrastructure:** Pothole · Streetlight · Water Supply · Drainage · Road Damage · Traffic Signal · Garbage · Other
 
@@ -224,10 +222,18 @@ App runs at `http://localhost:3000`
 
 ---
 
-## 🔒 Security
+##  Security
 
 - JWT authentication with refresh token rotation
 - Role-based route protection on both client and server
 - Password hashing with bcrypt
 - CORS configured per environment
 - All secrets managed via environment variables
+
+<img width="1905" height="940" alt="traffic1" src="https://github.com/user-attachments/assets/afd0efd4-d05f-459a-9130-8d6c90bb9d1d" />
+<img width="1900" height="942" alt="traffic2" src="https://github.com/user-attachments/assets/f0fc7776-eebd-4f56-8a82-2a00f7d2edef" />
+<img width="474" height="573" alt="traffic3" src="https://github.com/user-attachments/assets/d244c3a4-20dc-4eb8-bbff-0e646b2f7cdc" />
+<img width="1918" height="940" alt="traffic5" src="https://github.com/user-attachments/assets/36e1269a-9465-4b88-b9ca-e200715988dc" />
+<img width="1901" height="945" alt="traffic6" src="https://github.com/user-attachments/assets/90134d9a-0430-4060-840e-cd00c4cba3e9" />
+
+
